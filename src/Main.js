@@ -10,8 +10,8 @@ class Main extends Component {
   }
 
   componentWillMount() {
-    this.deliveriesService = new deliveriesService()
-    this.deliveries()
+    this.deliveriesService = new deliveriesService();
+    this.deliveries();
   }
 
   deliveries() {
@@ -24,7 +24,7 @@ class Main extends Component {
   }
 
   render() {
-    const deliveries = this.state.deliveries
+    const deliveries = this.state.deliveries;
 
     return (
       <div className="container">
