@@ -16,3 +16,11 @@ body {
 .table td, .table th {
   vertical-align: middle;
 }
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container {
+  width: 100%;
+}
