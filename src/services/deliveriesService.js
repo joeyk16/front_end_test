@@ -10,16 +10,12 @@ export default class deliveriesService {
   };
 
   create(params) {
-    console.log('create')
-    console.log(params)
     return fetch(`${baseUrl}/deliveries`, {
       method: "POST",
-      headers: new Headers({
-        'Content-Type': 'application/json',
-      }),
+      headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({ delivery: params })
     })
-      .then(response => response.json());
+      .then(res => res);
   };
 }
 
