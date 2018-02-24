@@ -53,10 +53,11 @@ export default class New extends Component {
   }
 
   validationGuard(params, cb) {
+    console.log(params.pick_up_date.length === 0)
     const validations = {
-      pickUpDate: params.pick_up_date.length > 0,
-      name: params.name.length > 0,
-      user_id: params.user_id.length > 0,
+      pickUpDate: params.pick_up_date.length === 0,
+      name: params.name.length === 0,
+      user_id: params.user_id.length === 0,
     }
 
     this.setState({validations}, cb)
@@ -65,7 +66,7 @@ export default class New extends Component {
   createRequest(params) {
     const { history } = this.props;
 
-    if (Object.values(this.state.validations).includes(false)) { return }
+    if (Object.values(this.state.validations).includes(true)) { return }
     this.deliveriesService.create(params)
     .then((res) => {
       if (res.ok) {
@@ -86,6 +87,23 @@ export default class New extends Component {
     )
   }
 
+  inputError(value) {
+    const message = this.message(value)
+    if (this.state.validations[value]) {
+      return (
+        <div className="m0 red font-x-small">
+          {message}
+        </div>
+      )
+    }
+  }
+
+  message(value) {
+    if (value === "pickUpDate") { return "Please enter a valid date"}
+    if (value === "name") { return "Please enter a name"}
+    if (value === "user_id") { return "Please choose a driver"}
+  }
+
   render() {
     const drivers = this.state.drivers;
 
@@ -100,14 +118,12 @@ export default class New extends Component {
               <div className="col-sm-10">
                 <input hidden type="date" required name="delivery[pick_up_date]" ref={ref => this.pickUpDate = ref} />
                 <DatePicker
-                  className="form-control is-invalid"
+                  className="form-control"
                   onChange={this.setPickUpDate}
                   selected={this.state.pickUpDate}
                   dateFormat={'DD/MM/YYYY'}
                 />
-                <div className="invadlid-feedback">
-                  test
-                </div>
+                { this.inputError("pickUpDate") }
               </div>
             </div>
 
@@ -115,14 +131,12 @@ export default class New extends Component {
               <label className="col-sm-2 col-form-label">Name</label>
               <div className="col-sm-10">
                 <input
-                  className="form-control is-invalid"
+                  className="form-control"
                   type="text"
                   name="delivery[name]"
                   ref={ref => this.name = ref}
                 />
-                <div className="invalid-feedback">
-                  test
-                </div>
+                { this.inputError("name") }
               </div>
             </div>
 
@@ -131,7 +145,7 @@ export default class New extends Component {
               <div className="col-sm-10">
                 <input hidden type="text" required name="delivery[user_id]" ref={ref => this.userId = ref} />
                 <select
-                  className="form-control is-invalid"
+                  className="form-control"
                   id="deliveryDriver"
                   name="driver_id"
                   onChange={ this.setUserId }
@@ -141,9 +155,7 @@ export default class New extends Component {
                     <option key={key} value={`${driver.id}`}>{driver.first_name}</option>
                   )}
                 </select>
-                <div className="invalid-feedback">
-                  test
-                </div>
+                { this.inputError("user_id") }
               </div>
             </div>
 
