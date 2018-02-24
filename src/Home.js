@@ -28,6 +28,18 @@ class Home extends Component {
     })
   }
 
+  delete = (id) => {
+    const deliveries = this.state.deliveries
+    const delivery_id = id
+
+    this.deliveriesService.delete(id)
+    .then((res) => {
+      if (res.ok) {
+        this.setState({deliveries: deliveries.filter(({ id }) => id !== delivery_id)});
+      }
+    })
+  }
+
   render() {
     const deliveries = this.state.deliveries;
     return (
@@ -52,8 +64,7 @@ class Home extends Component {
                   <td>{delivery.name}</td>
                   <td>{delivery.driver.first_name}</td>
                   <td className="text-right">
-                    <a className="btn btn-outline-primary" href="/">Edit</a>
-                    <a className="btn btn-outline-danger" href="/">Delete</a>
+                    <a className="btn btn-outline-danger" onClick={() => this.delete(delivery.id)}>Delete</a>
                   </td>
                 </tr>
               )}

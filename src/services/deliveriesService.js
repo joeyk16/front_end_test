@@ -17,5 +17,14 @@ export default class deliveriesService {
     })
       .then(res => res);
   };
+
+  delete(id) {
+    return fetch(`${baseUrl}/deliveries/${id}`, {
+      headers: new Headers({'Content-Type': 'application/json'}),
+      method: "DELETE",
+      body: JSON.stringify({ id: id })
+    })
+      .then(res => res);
+  };
 }
 
