@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import deliveriesService from "./services/deliveriesService.js";
+import { PropTypes as T } from 'prop-types';
 
 class Home extends Component {
+  static propTypes = {
+    history: T.object,
+  }
+
   constructor() {
     super()
     this.state = {

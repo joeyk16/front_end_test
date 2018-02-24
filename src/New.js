@@ -3,13 +3,20 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import driversService from "./services/driversService.js";
 import deliveriesService from "./services/deliveriesService.js";
+import { withRouter } from 'react-router-dom'
+import { PropTypes as T } from 'prop-types';
 
 export default class New extends Component {
+  static propTypes = {
+    history: T.object,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       pickUpDate: null,
       drivers: [],
+      validations: this.validations(),
     };
   }
 
@@ -17,6 +24,14 @@ export default class New extends Component {
     this.driversService = new driversService();
     this.deliveriesService = new deliveriesService();
     this.drivers();
+  }
+
+  validations() {
+    return {
+      pickUpDate: false,
+      name: false,
+      user_id: false,
+    }
   }
 
   drivers() {
@@ -37,6 +52,28 @@ export default class New extends Component {
     this.userId.value = userId.target.value;
   }
 
+  validationGuard(params, cb) {
+    const validations = {
+      pickUpDate: params.pick_up_date.length > 0,
+      name: params.name.length > 0,
+      user_id: params.user_id.length > 0,
+    }
+
+    this.setState({validations}, cb)
+  }
+
+  createRequest(params) {
+    const { history } = this.props;
+
+    if (Object.values(this.state.validations).includes(false)) { return }
+    this.deliveriesService.create(params)
+    .then((res) => {
+      if (res.ok) {
+        this.props.history.push("/")
+      }
+    })
+  }
+
   create = () => {
     const params = {
       name: this.name.value,
@@ -44,11 +81,9 @@ export default class New extends Component {
       user_id: this.userId.value,
     };
 
-    this.deliveriesService.create(params)
-    .then((res) => {
-      console.log('RES')
-      console.log(res)
-    });
+    this.validationGuard(params, () =>
+      this.createRequest(params)
+    )
   }
 
   render() {
