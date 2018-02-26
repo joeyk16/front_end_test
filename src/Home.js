@@ -33,7 +33,7 @@ class Home extends Component {
     return (
       <div className="container">
         <main role="main">
-          <h1>Deliveries</h1>
+          <h1 className="pb-4">Deliveries</h1>
           <table className="table">
             <thead>
               <tr>

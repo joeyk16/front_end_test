@@ -3,10 +3,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import driversService from "./services/driversService.js";
 import deliveriesService from "./services/deliveriesService.js";
-import { withRouter } from 'react-router-dom'
 import { PropTypes as T } from 'prop-types';
 
-export default class New extends Component {
+class New extends Component  {
   static propTypes = {
     history: T.object,
   }
@@ -52,8 +51,19 @@ export default class New extends Component {
     this.userId.value = userId.target.value;
   }
 
+  create = (e) => {
+    const params = {
+      name: this.name.value,
+      pick_up_date: this.pickUpDate.value,
+      user_id: this.userId.value,
+    };
+
+    this.validationGuard(params, () =>
+      this.createRequest(params)
+    )
+  }
+
   validationGuard(params, cb) {
-    console.log(params.pick_up_date.length === 0)
     const validations = {
       pickUpDate: params.pick_up_date.length === 0,
       name: params.name.length === 0,
@@ -66,25 +76,14 @@ export default class New extends Component {
   createRequest(params) {
     const { history } = this.props;
 
-    if (Object.values(this.state.validations).includes(true)) { return }
+    if (Object.values(this.state.validations).includes(true)) return
+
     this.deliveriesService.create(params)
-    .then((res) => {
-      if (res.ok) {
-        this.props.history.push("/")
-      }
-    })
-  }
-
-  create = () => {
-    const params = {
-      name: this.name.value,
-      pick_up_date: this.pickUpDate.value,
-      user_id: this.userId.value,
-    };
-
-    this.validationGuard(params, () =>
-      this.createRequest(params)
-    )
+      .then((res) => {
+        if (res.ok) {
+          history.push("/");
+        }
+      })
   }
 
   inputError(value) {
@@ -112,7 +111,6 @@ export default class New extends Component {
         <main role="main">
           <h1 className="pb-4">Create Delivery</h1>
           <form>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Date</label>
               <div className="col-sm-10">
@@ -126,7 +124,6 @@ export default class New extends Component {
                 { this.inputError("pickUpDate") }
               </div>
             </div>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Name</label>
               <div className="col-sm-10">
@@ -139,7 +136,6 @@ export default class New extends Component {
                 { this.inputError("name") }
               </div>
             </div>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Driver</label>
               <div className="col-sm-10">
@@ -158,11 +154,12 @@ export default class New extends Component {
                 { this.inputError("user_id") }
               </div>
             </div>
-
-            <button className="btn btn-primary" onClick={ this.create}>Create</button>
+            <button type="button" className="btn btn-primary float-right" onClick={this.create}>Create</button>
           </form>
         </main>
       </div>
     )
   }
 }
+
+export default New;
