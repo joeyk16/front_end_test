@@ -30,7 +30,7 @@ class New extends Component  {
       pickUpDate: false,
       name: false,
       user_id: false,
-    }
+    };
   }
 
   drivers() {
@@ -60,7 +60,7 @@ class New extends Component  {
 
     this.validationGuard(params, () =>
       this.createRequest(params)
-    )
+    );
   }
 
   validationGuard(params, cb) {
@@ -68,22 +68,27 @@ class New extends Component  {
       pickUpDate: params.pick_up_date.length === 0,
       name: params.name.length === 0,
       user_id: params.user_id.length === 0,
-    }
+    };
 
-    this.setState({validations}, cb)
+    this.setState({validations}, cb);
   }
 
   createRequest(params) {
     const { history } = this.props;
 
-    if (Object.values(this.state.validations).includes(true)) return
+    if (Object.values(this.state.validations).includes(true)) return;
 
     this.deliveriesService.create(params)
       .then((res) => {
         if (res.ok) {
+          // Should show a flash message so user knows its been
+          // created. This wasn't in your example so i will leave this out.
           history.push("/");
+        } else {
+          // Should show a flash message so user knows there's an error
+          // this wasn't in your example so i will leave this out.
         }
-      })
+      });
   }
 
   inputError(value) {
@@ -94,13 +99,13 @@ class New extends Component  {
           {message}
         </div>
       )
-    }
+    };
   }
 
   message(value) {
-    if (value === "pickUpDate") { return "Please enter a valid date"}
-    if (value === "name") { return "Please enter a name"}
-    if (value === "user_id") { return "Please choose a driver"}
+    if (value === "pickUpDate") { return "Please enter a valid date"};
+    if (value === "name") { return "Please enter a name"};
+    if (value === "user_id") { return "Please choose a driver"};
   }
 
   render() {
