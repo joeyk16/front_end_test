@@ -52,7 +52,7 @@ class Home extends Component {
 
   delete = () => {
     const { deliveries, deleteId } = this.state
-    console.log(deleteId)
+
     this.deliveriesService.delete(deleteId)
     .then((res) => {
       if (res.ok) {
@@ -90,7 +90,7 @@ class Home extends Component {
                   <td>{`${delivery.driver.first_name} ${delivery.driver.last_name}`}</td>
                   <td className="text-right">
                     <button
-                      className="btn btn-outline-danger curser"
+                      className="btn btn-outline-danger"
                       onClick={() => this.setState({
                         deleteId: delivery.id,
                         deleteAlert: true,

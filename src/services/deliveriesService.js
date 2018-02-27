@@ -1,7 +1,6 @@
 // This should be an enivrontment variable for simplicity I will leave it
 const baseUrl = 'https://carton-cloud-api.herokuapp.com/'
 
-
 export default class deliveriesService {
   index() {
     return fetch(`${baseUrl}/deliveries`, {
