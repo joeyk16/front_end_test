@@ -1,10 +1,10 @@
 // This should be an enivrontment variable for simplicity I will leave it
-const baseUrl = "http://localhost:3000"
+const baseUrl = 'https://carton-cloud-api.herokuapp.com/'
 
 export default class deliveriesService {
   index() {
     return fetch(`${baseUrl}/deliveries`, {
-      method: "GET",
+      method: 'GET',
     })
       .then(res => res.json());
     };

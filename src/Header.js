@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 class Header extends Component {
@@ -16,10 +16,10 @@ class Header extends Component {
           <nav>
             <ul className="nav nav-pills float-right">
               <li className="nav-item">
-                <a className={`nav-link ${this.linkActive("/")}`} href="/">Deliveries</a>
+                <a className={`nav-link ${this.linkActive('/')}`} href="/">Deliveries</a>
               </li>
               <li className="nav-item">
-                <Link className={`nav-link ${this.linkActive("/new")}`} to={'/new'}>
+                <Link className={`nav-link ${this.linkActive('/new')}`} to={'/new'}>
                   New Delivery
                 </Link>
               </li>

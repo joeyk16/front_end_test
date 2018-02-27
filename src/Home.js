@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import deliveriesService from "./services/deliveriesService.js";
-import { PropTypes as T } from "prop-types";
+import React, { Component } from 'react';
+import deliveriesService from './services/deliveriesService.js';
+import { PropTypes as T } from 'prop-types';
 
 class Home extends Component {
   static propTypes = {
@@ -50,7 +50,7 @@ class Home extends Component {
                   <th scope="row">{delivery.id}</th>
                   <td>{delivery.pick_up_date}</td>
                   <td>{delivery.name}</td>
-                  <td>{delivery.driver.first_name}</td>
+                  <td>{`${delivery.driver.first_name} ${delivery.driver.last_name}`}</td>
                   <td className="text-right">
                     <a className="btn btn-outline-primary" href="/">Edit</a>
                     <a className="btn btn-outline-danger" href="/">Delete</a>
