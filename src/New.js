@@ -51,7 +51,7 @@ class New extends Component  {
     this.userId.value = userId.target.value;
   }
 
-  create = (e) => {
+  create = () => {
     const params = {
       name: this.name.value,
       pick_up_date: this.pickUpDate.value,
