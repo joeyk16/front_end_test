@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import driversService from "./services/driversService.js";
-import deliveriesService from "./services/deliveriesService.js";
-import { withRouter } from 'react-router-dom'
+import driversService from './services/driversService.js';
+import deliveriesService from './services/deliveriesService.js';
 import { PropTypes as T } from 'prop-types';
 
-export default class New extends Component {
+class New extends Component  {
   static propTypes = {
     history: T.object,
   }
@@ -31,7 +30,7 @@ export default class New extends Component {
       pickUpDate: false,
       name: false,
       user_id: false,
-    }
+    };
   }
 
   drivers() {
@@ -52,28 +51,6 @@ export default class New extends Component {
     this.userId.value = userId.target.value;
   }
 
-  validationGuard(params, cb) {
-    const validations = {
-      pickUpDate: params.pick_up_date.length > 0,
-      name: params.name.length > 0,
-      user_id: params.user_id.length > 0,
-    }
-
-    this.setState({validations}, cb)
-  }
-
-  createRequest(params) {
-    const { history } = this.props;
-
-    if (Object.values(this.state.validations).includes(false)) { return }
-    this.deliveriesService.create(params)
-    .then((res) => {
-      if (res.ok) {
-        this.props.history.push("/")
-      }
-    })
-  }
-
   create = () => {
     const params = {
       name: this.name.value,
@@ -83,7 +60,52 @@ export default class New extends Component {
 
     this.validationGuard(params, () =>
       this.createRequest(params)
-    )
+    );
+  }
+
+  validationGuard(params, cb) {
+    const validations = {
+      pickUpDate: params.pick_up_date.length === 0,
+      name: params.name.length === 0,
+      user_id: params.user_id.length === 0,
+    };
+
+    this.setState({validations}, cb);
+  }
+
+  createRequest(params) {
+    const { history } = this.props;
+
+    if (Object.values(this.state.validations).includes(true)) return;
+
+    this.deliveriesService.create(params)
+      .then((res) => {
+        if (res.ok) {
+          // Should show a flash message so user knows its been
+          // created. This wasn't in your example so i will leave this out.
+          history.push('/');
+        } else {
+          // Should show a flash message so user knows there's an error
+          // this wasn't in your example so i will leave this out.
+        }
+      });
+  }
+
+  inputError(value) {
+    const message = this.message(value)
+    if (this.state.validations[value]) {
+      return (
+        <div className="m0 red font-x-small">
+          {message}
+        </div>
+      )
+    };
+  }
+
+  message(value) {
+    if (value === 'pickUpDate') { return 'Please enter a valid date'};
+    if (value === 'name') { return 'Please enter a name'};
+    if (value === 'user_id') { return 'Please choose a driver'};
   }
 
   render() {
@@ -94,63 +116,59 @@ export default class New extends Component {
         <main role="main">
           <h1 className="pb-4">Create Delivery</h1>
           <form>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Date</label>
               <div className="col-sm-10">
-                <input hidden type="date" required name="delivery[pick_up_date]" ref={ref => this.pickUpDate = ref} />
+                <input hidden type="date" required name="delivery[pick_up_date]" ref={ref => this.pickUpDate = ref}/>
                 <DatePicker
-                  className="form-control is-invalid"
+                  className="form-control"
                   onChange={this.setPickUpDate}
                   selected={this.state.pickUpDate}
                   dateFormat={'DD/MM/YYYY'}
                 />
-                <div className="invadlid-feedback">
-                  test
-                </div>
+                { this.inputError('pickUpDate') }
               </div>
             </div>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Name</label>
               <div className="col-sm-10">
                 <input
-                  className="form-control is-invalid"
+                  className="form-control"
                   type="text"
                   name="delivery[name]"
                   ref={ref => this.name = ref}
                 />
-                <div className="invalid-feedback">
-                  test
-                </div>
+                { this.inputError('name') }
               </div>
             </div>
-
             <div className="form-group row">
               <label className="col-sm-2 col-form-label">Driver</label>
               <div className="col-sm-10">
-                <input hidden type="text" required name="delivery[user_id]" ref={ref => this.userId = ref} />
+                <input hidden type="text" required name="delivery[user_id]" ref={ref => this.userId = ref}/>
                 <select
-                  className="form-control is-invalid"
+                  className="form-control"
                   id="deliveryDriver"
                   name="driver_id"
                   onChange={ this.setUserId }
                 >
                   <option>- Select One -</option>
                   { drivers.map((driver, key) =>
-                    <option key={key} value={`${driver.id}`}>{driver.first_name}</option>
+                    <option key={key} value={`${driver.id}`}>
+                      {`${driver.first_name} ${driver.last_name}`}
+                    </option>
                   )}
                 </select>
-                <div className="invalid-feedback">
-                  test
-                </div>
+                { this.inputError('user_id') }
               </div>
             </div>
-
-            <button className="btn btn-primary" onClick={ this.create}>Create</button>
+            <button type="button" className="btn btn-primary float-right" onClick={this.create}>
+              Create
+            </button>
           </form>
         </main>
       </div>
     )
   }
 }
+
+export default New;

@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import deliveriesService from "./services/deliveriesService.js";
+import React, { Component } from 'react';
+import deliveriesService from './services/deliveriesService.js';
 import { PropTypes as T } from 'prop-types';
 import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
 
 class Home extends Component {
   static propTypes = {
@@ -69,7 +70,7 @@ class Home extends Component {
       <div className="container">
         <main role="main">
           { this.deleteAlert() }
-          <h1>Deliveries</h1>
+          <h1 className="pb-4">Deliveries</h1>
           <table className="table">
             <thead>
               <tr>
@@ -86,17 +87,17 @@ class Home extends Component {
                   <th scope="row">{delivery.id}</th>
                   <td>{delivery.pick_up_date}</td>
                   <td>{delivery.name}</td>
-                  <td>{delivery.driver.first_name}</td>
+                  <td>{`${delivery.driver.first_name} ${delivery.driver.last_name}`}</td>
                   <td className="text-right">
-                    <a
-                      className="btn btn-outline-danger"
+                    <button
+                      className="btn btn-outline-danger curser"
                       onClick={() => this.setState({
                         deleteId: delivery.id,
                         deleteAlert: true,
                       })}
                     >
                       Delete
-                    </a>
+                    </button>
                   </td>
                 </tr>
               )}
