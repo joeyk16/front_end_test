@@ -82,8 +82,8 @@ class Home extends Component {
               </tr>
             </thead>
             <tbody>
-              { deliveries.map(delivery =>
-                <tr>
+              { deliveries.map((delivery, key) =>
+                <tr key={key}>
                   <th scope="row">{delivery.id}</th>
                   <td>{delivery.pick_up_date}</td>
                   <td>{delivery.name}</td>
