@@ -4,8 +4,8 @@ const baseUrl = 'https://carton-cloud-api.herokuapp.com/'
 export default class driversService {
   index() {
     return fetch(`${baseUrl}/users`, {
-      method: 'GET',
+      method: "GET",
     })
-      .then(response => response.json());
+      .then(res => res.json());
   };
 }

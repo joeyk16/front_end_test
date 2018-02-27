@@ -7,7 +7,7 @@ export default class deliveriesService {
       method: 'GET',
     })
       .then(res => res.json());
-    };
+  };
 
   create(params) {
     return fetch(`${baseUrl}/deliveries`, {
@@ -15,5 +15,16 @@ export default class deliveriesService {
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify({ delivery: params })
     })
+      .then(res => res);
+  };
+
+  delete(id) {
+    return fetch(`${baseUrl}/deliveries/${id}`, {
+      headers: new Headers({'Content-Type': 'application/json'}),
+      method: "DELETE",
+      body: JSON.stringify({ id: id })
+    })
+      .then(res => res);
   };
 }
+

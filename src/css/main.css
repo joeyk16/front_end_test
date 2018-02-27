@@ -40,3 +40,7 @@ body {
 .float-right {
   float: right;
 }
+
+button {
+  cursor: pointer;
+}
