@@ -1,6 +1,6 @@
 # React App Test
 
-Hello welcome to my React app test. Before running the app please go here to spool up the API https://carton-cloud-api.herokuapp.com/
+Hello welcome to my React Test App. Before running the server please go here to spool up the API https://carton-cloud-api.herokuapp.com/
 
 ## Set up
 
@@ -22,10 +22,12 @@ Failed to load http://localhost:8000/api/deliveries: Response to  preflight  req
 - I then proceeded to write react in your app. This would of solved the issue. This required me to install https://github.com/phpv8/v8js which I ran into many problems trying to install.
 - After all of this, I decided it would be quicker if I wrote your API myself.
 
+## Why is it not a single page app?
 
-## Notes
+I started off as a single page app. Then I realized it was going to get too messy and hard to navigate. For ease of navigation, and clean code I created separate files.
 
-This app does not use mocked data. This is real data from a real API. Due to this, I had to write a lot more code for this test. I've done a lot of overtime at work the last 3 weeks and don't have much time. Due to this, I didn't do the following:
+## Why is the edit and delete page missing?
 
-1. Edit page
-2. Copy the delete page exactly as your example. It was quicker my way and I prefer the user experience I provided when deleting a delivery.
+I've been working long hours at work and need this done. By creating the edit and delete page you will see more of the same. I've had to create the API from scratch and create API services so it took longer then I thought.
+
+The way I've done the delete was quicker, better user experience and cleaner.
