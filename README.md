@@ -24,7 +24,7 @@ Failed to load http://localhost:8000/api/deliveries: Response to  preflight  req
 
 ## Notes
 
-This app does not use mocked data. This is real data from a real API. Due to this, I had to write a lot more code for this test. I've done a lot of overtime at work last 3 weeks and don't have much time. Due to this, I didn't do the following:
+This app does not use mocked data. This is real data from a real API. Due to this, I had to write a lot more code for this test. I've done a lot of overtime at work the last 3 weeks and don't have much time. Due to this, I didn't do the following:
 
 1. The edit page
 2. Copy the delete page exactly as you had. I prefer the user experience I provided on the delete.
