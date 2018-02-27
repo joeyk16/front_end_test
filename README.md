@@ -19,7 +19,7 @@ Hello welcome to my React app test. Before running the app please go here to spo
 Failed to load http://localhost:8000/api/deliveries: Response to  preflight  request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access
 
 ```
-- I then proceeded to write react in your app. This would of solved the issue. This required me to install `https://github.com/phpv8/v8js\` which I ran into many problems trying to install.
+- I then proceeded to write react in your app. This would of solved the issue. This required me to install https://github.com/phpv8/v8js which I ran into many problems trying to install.
 - After all of this, I decided it would be quicker if I wrote your API myself.
 
 
