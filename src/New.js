@@ -83,7 +83,7 @@ class New extends Component  {
         if (res.ok) {
           // Should show a flash message so user knows its been
           // created. This wasn't in your example so i will leave this out.
-          history.push("/");
+          history.push('/');
         } else {
           // Should show a flash message so user knows there's an error
           // this wasn't in your example so i will leave this out.
